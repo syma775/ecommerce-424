@@ -24,7 +24,7 @@ class BuyerController extends Controller
     {
         $buyer = new Buyer();
         $buyer->email = $request->email;
-        $buyer->password = $request->password;
+        $buyer->password = bcrypt('$request->password');
         $buyer->address = $request->address;
         $buyer->phone = $request->phone;
         $buyer->name = $request->name;
