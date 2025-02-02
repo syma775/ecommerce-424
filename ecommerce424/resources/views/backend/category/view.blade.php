@@ -9,7 +9,7 @@
               <div class="btn btn-block btn-success">{{ session()->get('success') }}</div>
             @endif
 
-            <h3 style="text-align:center;margin-top:20px;font-size:bold">Category List</h3>
+            <h3 style="text-align:center;margin-top:20px;font-size:bold">Category Single View</h3>
             <table class="table table-bordered">
                 <tr>
                         <th>SL</th>

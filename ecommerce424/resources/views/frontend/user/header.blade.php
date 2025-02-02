@@ -23,8 +23,9 @@
                 </div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/vendor/login')}}">Vendor Login</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{{ url('/buyer/customer/login')}}">User Login</a></li>
-                        
+                        <li class="nav-item"><a class="nav-link active" href="#">{{ $buyer->name }}</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{{ url('/buyer/logout')}}">Logout</a></li>
+
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\frontend\BuyerController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\SellerController;
 use App\Http\Controllers\backend\ProductController;
@@ -13,7 +14,7 @@ use App\Http\Controllers\ContentController;
 
 //frontend Routes
 
-Route::get('/',[FrontendController::class,'index']);
+Route::get('/',[FrontendController::class,'index'])->name('home');
 
 //Admin Routes
 Route::get('admin/dashboard',[AdminController::class,'adminDashboard']);
@@ -55,3 +56,14 @@ Route::get('/vendor/product/delete/{id}',[ProductController::class,'vendorProduc
 Route::get('/admin/product/manage',[ProductController::class,'adminProductList']);
 Route::get('/admin/product/approve/{id}',[ProductController::class,'adminProductApprove']);
 Route::get('/admin/product/delete/{id}',[ProductController::class,'adminProductDelete']);
+
+//user controller routes
+
+Route::get('/buyer/customer/login',[BuyerController::class,'buyerLogin']);
+Route::get('/buyer/custmer/register',[BuyerController::class,'buyerRegister']);
+Route::post('buyer/customer/store',[BuyerController::class,'buyerStore']);
+Route::post('/buyer/customer/login',[BuyerController::class,'BuyerLoginForm']);
+Route::get('/buyer/logout',[BuyerController::class,'buyerLogout']);
+Route::get('admin/buyer/manage',[BuyerController::class,'buyerManage']);
+Route::get('admin/buyer/view/{id}',[BuyerController::class,'buyerView']);
+Route::get('/admin/buyer/delete/{id}',[BuyerController::class,'buyerDelete']);

@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <div class="row">
 
-            <h3 style="text-align:center;margin-top:20px;font-size:bold">Category List</h3>
+            <h3 style="text-align:center;margin-top:20px;font-size:bold">Vendor List</h3>
             <table class="table table-bordered">
                 <tr>
                     <th>SL</th>
