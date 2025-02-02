@@ -68,7 +68,7 @@ class SellerController extends Controller
 
         $vendor = new Vendor();
         $vendor->email = $request->email;
-        $vendor->password = $request->password;
+        $vendor->password = bcrypt('$request->password');
         $vendor->address = $request->address;
         $vendor->phone = $request->phone;
         $vendor->image=$imageName;
