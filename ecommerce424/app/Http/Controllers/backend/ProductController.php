@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Models\Basket;
+use App\Models\Buyer;
+use App\Models\order;
+use App\Models\Complete;
 use Session;
 
 class ProductController extends Controller
@@ -133,4 +137,107 @@ class ProductController extends Controller
     //     $$product->save();
     //     return redirect()->back()->with('success','Product has been pending');
     // }
+
+    public function addToCart(Request $request)
+    {
+        
+        $addToCart = new Basket();
+        $addToCart->user_id = session()->get('buyerId');
+        $addToCart->vendor_id = $request->vendor_id;
+        $addToCart->product_id = $request->product_id;
+        $addToCart->price = $request->price;
+        // $addToCart->qty = $request->qty;
+        $addToCart->qty = $request->qty ? $request->qty : 1;
+        $addToCart->total_price = 1*$request->price;
+        $addToCart->save();
+        return redirect('/cart/user/show')->with('success','product added to cart.');
+        
+    }
+
+    public function cartShow()
+    {
+        $baskets = Basket::with('product','vendor')->get();
+        return view('frontend.cart.cart-manage',compact('baskets'));
+    }
+
+    public function cartSingleView($id)
+    {
+        $basket= Basket::find($id);
+        return view('frontend.cart.cart-product-view',compact('basket'));
+    }
+
+    public function cartItemDelete($id)
+    {
+        $basket = Basket::find($id);
+        $basket->delete();
+        return redirect('/cart/user/show')->with('success','Item has been deleted.');
+    }
+
+    public function cartProductUpdate(Request $request,$id)
+    {
+        $basket = Basket::find($id);
+        $basket->qty = $request->qty;
+        $basket->save();
+        return redirect()->back()->with('success','product updated to cart.');
+    }
+
+    public function cartProductCheck()
+    {
+        $order = Basket::with('product','vendor','order')->get();
+
+        foreach ($order as $row) {
+            Order::create([
+              'user_id' => $row->user_id,
+              'vendor_id' => $row->vendor_id,
+              'product_id' => $row->product_id,
+              'price' => $row->price,
+              'qty' => $row->qty,
+              'total_price' => $row->total_price,
+              
+              
+          ]);
+
+          
+          
+        }
+         return view('frontend.cart.order-manage',compact('order'));
+        
+    }
+
+    public function orderComplete(Request $request)
+    {
+        $orderComplete= new Complete();
+        $orderComplete->user_id=session()->get('buyerId');
+        $orderComplete->user_name=session()->get('buyerName');
+        $orderComplete->pay=$request->pay;
+        $orderComplete->save();
+        return redirect()->back()->with('success','order Complete');
+    }
+  
+    public function orderManage()
+    {
+        $orders = Order::get();
+        return view('frontend.cart.order-admin-manage',compact('orders'));
+    }
+
+    public function payment()
+    {
+        $payment = Complete::get();
+        return view('frontend.cart.payment-admin-manage',compact('payment'));
+    }
+
+    public function orderDelete($id)
+    {
+        $order = Order::find($id);
+        $order->delete();
+        return redirect('order/admin/manage')->with('success','Order has been deliveried.');
+    }
+
+    public function paymentComplete($id)
+    {
+        $payment = Complete::find($id);
+        $payment->delete();
+        return redirect('order/payment/details')->with('success','Order has been deliveried.');
+    }
+
 }

@@ -12,4 +12,14 @@ class Vendor extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function basket()
+    {
+        return $this->hasMany(Basket::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

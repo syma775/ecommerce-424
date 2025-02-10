@@ -19,25 +19,29 @@ E-commerce
                 <div class="">
                    <div class="col-md-12">
                     <div class="row">
+                    
                         <div class="col-md-3">
+                       
                         <div class="card ">
+                        @if(session()->has('success'))
+					          <div class="alert alert-success">{{ session()->get('success')}}</div>
+					          @endif
+							  @if(session()->has('error'))
+					          <div class="alert alert-danger">{{ session()->get('error')}}</div>
+					          @endif
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
                             <img class="card-img-top" src="{{ asset('/product/'.$product->image) }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
+                           
                                 <div class="text-center">
+                                <form action="{{ url('/add/to/cart') }}" method="post">
+                                @csrf
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ $product->name }}</h5>
-                                    <!-- Product reviews-->
-                                    <!-- <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div> -->
+                                 
                                     <div class=" mb-2">
                                         <div class="">
                                         <span class="text-muted">Size:</span>
@@ -56,7 +60,22 @@ E-commerce
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url('/add/to/cart')}}">Add to cart</a></div>
+                            
+											<input type="hidden" name="vendor_id" value="{{ $product->vendor_id }}"/>
+											<input type="hidden" name="product_id" value="{{ $product->id }}"/>
+											<input type="hidden" name="price" value="{{ $product->price }}"/>
+											<div class="women">
+												<!-- <h6><a href="{{ url('/product/details/'.$product->id) }}">{{ $product->name }}</a></h6>
+												<p ><em class="item_price">${{ $product->price }}</em></p> -->
+                                                <!-- <input type="number" min="1" max="{{ $product->qty}}" name="qty" value="1"/> -->
+												
+                                                <div class="text-center"><button class="btn btn-outline-dark mt-auto" type="submit">Add to cart</button></div>
+                                            
+												
+												
+											</div>
+										</form>
+                               
                             </div>
                         </div>
 

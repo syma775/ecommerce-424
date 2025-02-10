@@ -67,3 +67,19 @@ Route::get('/buyer/logout',[BuyerController::class,'buyerLogout']);
 Route::get('admin/buyer/manage',[BuyerController::class,'buyerManage']);
 Route::get('admin/buyer/view/{id}',[BuyerController::class,'buyerView']);
 Route::get('/admin/buyer/delete/{id}',[BuyerController::class,'buyerDelete']);
+
+//cart controller routes
+
+Route::post('/add/to/cart',[ProductController::class,'addToCart']);
+Route::get('/cart/user/show',[ProductController::class,'cartShow']);
+Route::get('/cart/view/{id}',[ProductController::class,'cartSingleView']);
+Route::get('/cart/delete/{id}',[ProductController::class,'cartItemDelete']);
+Route::post('/cart/product/update/{id}',[ProductController::class,'cartProductUpdate']);
+Route::get('/cart/check/{id}',[ProductController::class,'cartProductCheck']);
+
+//order controller routes
+Route::post('/order/complete',[ProductController::class,'orderComplete']);
+Route::get('order/admin/manage',[ProductController::class,'orderManage']);
+Route::get('order/payment/details',[ProductController::class,'payment']);
+Route::get('/order/complete/{id}',[ProductController::class,'orderDelete']);
+Route::get('/pay/complete/{id}',[ProductController::class,'paymentComplete']);
